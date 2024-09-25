@@ -1,5 +1,5 @@
-const mongoose=require("mongoose");
-const user=new mongoose.Schema({
+import mongoose from "mongoose";
+const userSchema =new mongoose.Schema({
     username:{
         type:String,
         requied: true,
@@ -47,7 +47,7 @@ const user=new mongoose.Schema({
     }
     ]
  
-},{timestamps:true})
+},{timestamps:true});
 
 
-module.exports=mongoose.model("user", user);
+export default mongoose.model("User", userSchema);
