@@ -1,5 +1,4 @@
-const mongoose=require("mongoose");
-
+import mongoose from "mongoose";
 
 const conn= async ()=>{
     try {
@@ -13,4 +12,4 @@ const conn= async ()=>{
         
     }
 }
-conn();
+export default conn;
