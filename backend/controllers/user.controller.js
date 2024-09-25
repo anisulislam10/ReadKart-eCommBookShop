@@ -154,3 +154,21 @@ export const registerUser = async (req, res) => {
     }
     
  }
+
+//update user address
+export const updateAddress=async (req,res)=>{
+    try {
+        const {id}=req.headers;
+        const {address}=req.body;
+        await User.findByIdAndUpdate(id,{address:address});
+        return res.status(200).json({
+            message:"Address Updated Successfully"
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        })
+        
+    }
+}
