@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import connectDB from "./config/config.js";
 import userRoute from './Routes/user.route.js';
 import bookRoute from './Routes/book.route.js';
+import addToFavouriteRoute from './Routes/addToFavourite.route.js';
+
 
 dotenv.config();
 
@@ -15,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // API routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/book", bookRoute);
+app.use("/api/v1/favourite", addToFavouriteRoute);
 
 // Check connection route
 app.get("/check_conn", (req, res) => {
