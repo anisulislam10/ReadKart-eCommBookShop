@@ -1,6 +1,5 @@
-const mongoose = require("mongoose");
-
-const books = new mongoose.Schema({
+import mongoose from "mongoose"
+const bookSchema = new mongoose.Schema({
 url:{
     type: String,
     required: true
@@ -27,4 +26,4 @@ language:{
 }, 
 })
 
-module.exports = mongoose.model("books", books)
+export default mongoose.model("Books",bookSchema)
