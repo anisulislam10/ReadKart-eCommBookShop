@@ -26,4 +26,4 @@ language:{
 }, 
 })
 
-export default mongoose.model("Books",bookSchema)
+export default mongoose.model("books",bookSchema)
