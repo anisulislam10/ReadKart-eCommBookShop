@@ -6,8 +6,8 @@ dotenv.config({});
 const authenticateToken=(req,res,next)=>{
     const authHeader=req.headers["authorization"];
     const token=authHeader && authHeader.split(" ")[1];
-    console.log("middleware authtoken hitted");
-    console.log(token);
+    // console.log("middleware authtoken hitted");
+    // console.log(token);
     
     
 
