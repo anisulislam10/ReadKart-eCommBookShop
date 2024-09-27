@@ -5,6 +5,7 @@ import userRoute from './Routes/user.route.js';
 import bookRoute from './Routes/book.route.js';
 import addToFavouriteRoute from './Routes/addToFavourite.route.js';
 import addToCartRoute from './Routes/addToCart.route.js';
+import createOrder from './Routes/order.route.js'
 
 
 dotenv.config();
@@ -19,7 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/book", bookRoute);
 app.use("/api/v1/favourite", addToFavouriteRoute);
-app.use("/api/v1/cart",addToCartRoute)
+app.use("/api/v1/cart",addToCartRoute);
+app.use("/api/v1/order",createOrder);
+
 
 
 // Check connection route
