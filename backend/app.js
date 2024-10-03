@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors'
 import dotenv from "dotenv";
 import connectDB from "./config/config.js";
 import userRoute from './Routes/user.route.js';
@@ -9,7 +10,7 @@ import createOrder from './Routes/order.route.js'
 
 
 dotenv.config();
-
+// app.use(cors());
 const app = express();
 
 // Use express's built-in body parser
