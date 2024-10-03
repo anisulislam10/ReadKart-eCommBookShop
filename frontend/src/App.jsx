@@ -1,17 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Fixing the import
+import Navbar from './components/Navbar/Navbar';
+import Homepage from './pages/Homepage';
+import Footer from './components/Footer/Footer';
+import AllBooks from './pages/AllBooks';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Cart from './pages/Cart';
+import Profile from './pages/Profile';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-  
     <div>
-      <h1 className='bg-red-400 h-screen text-white text-[30px] items-center text-center pt-[300px] shadow-lg font-bold'>Welcome to ReadKart Initial Setup</h1>
+      <Router> {/* Use BrowserRouter correctly */}
+        <Navbar />
+        <Routes>
+          <Route exact path='/' element={<Homepage />} />
+          <Route path='/all-books' element={<AllBooks />} />
+          <Route path='/Sign-In' element={<Login />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/Sign-Up' element={<Signup />} />
+          <Route path='/profile' element={<Profile />} />
+
+        </Routes>
+        <Footer />
+      </Router>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
