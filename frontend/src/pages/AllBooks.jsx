@@ -18,7 +18,7 @@ useEffect(() => {
 
   return (
     <div className='bg-purple-700 px-4'>
-  {!allBooks && ( <div className='flex items-center justify-center my-4' >
+  {!allBooks && ( <div className="flex items-center justify-center my-4">
     <Loader/> 
     </div>
   )}

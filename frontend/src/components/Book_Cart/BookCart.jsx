@@ -6,7 +6,7 @@ function BookCart({data}) {
   
   return (
   <>
-  <Link>
+  <Link to={`/view-book-details/${data._id}`}>
   
   <div className='bg-purple-800 rounded p-4 flex flex-col   '>
 <div className='bg-purple-900 flex items-center justify-center hover:bg-purple-700 hover:transition duration-1000 '> 
