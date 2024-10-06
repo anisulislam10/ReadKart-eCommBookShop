@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Fixing the import
+import {Routes, Route } from 'react-router-dom'; // Fixing the import
 import Navbar from './components/Navbar/Navbar';
 import Homepage from './pages/Homepage';
 import Footer from './components/Footer/Footer';
@@ -8,11 +8,27 @@ import Login from './pages/Login';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import ViewBookDetails from './components/ViewBookDetails/ViewBookDetails';
+import { authAction } from './Store/auth.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 function App() {
+  const dispatch=useDispatch();
+  const role=useSelector((state)=>state.auth.role);
+  useEffect(() => {
+if(
+  localStorage.getItem("id") &&
+  localStorage.getItem("token") &&
+  localStorage.getItem("role")
+){
+  dispatch(authAction.login());
+  dispatch(authAction.changeRole(localStorage.getItem("role")));
+}
+  }, [])
+  
   return (
     <div>
-      <Router> {/* Use BrowserRouter correctly */}
+      
         <Navbar />
         <Routes>
           <Route exact path='/' element={<Homepage />} />
@@ -25,7 +41,7 @@ function App() {
 
         </Routes>
         <Footer />
-      </Router>
+     
     </div>
   );
 }
