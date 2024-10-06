@@ -11,6 +11,9 @@ import ViewBookDetails from './components/ViewBookDetails/ViewBookDetails';
 import { authAction } from './Store/auth.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Favourites from './components/profile/Favourites.jsx';
+import OrderHistory from './components/profile/OrderHistory.jsx';
+import Settings from './components/profile/Settings.jsx';
 
 function App() {
   const dispatch=useDispatch();
@@ -36,7 +39,11 @@ if(
           <Route path='/Sign-In' element={<Login />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/Sign-Up' element={<Signup />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<Profile />} >
+          <Route index element={<Favourites/>}/>
+          <Route path='/profile/history' element={<OrderHistory/>}/>
+          <Route path='/profile/settings' element={<Settings/>}/>
+          </Route >
           <Route path='/view-book-details/:id' element={<ViewBookDetails/>} />
 
         </Routes>
