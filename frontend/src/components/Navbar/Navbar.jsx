@@ -1,6 +1,7 @@
 import React from 'react'
 import logoReadKart from '../../assets/ReadKart-logo/logo.png'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
 
@@ -28,7 +29,11 @@ function Navbar() {
             link: "/profile"
         },
     ];
-
+const isLoggedIn=useSelector((state)=>state.auth.isLoggedin);
+console.log(isLoggedIn);
+if(isLoggedIn===false){
+    links.splice(2,2)
+}
     return (
         <div>
             <div className=' flex bg-purple-600 text-white px-8 py-4 items-center justify-between shadow-md'>
@@ -48,11 +53,14 @@ function Navbar() {
                         ))
                     }
                   </div>
-                  <div className='flex  gap-4'>
+                  {
+                    isLoggedIn===false && 
+                    <div className='flex  gap-4'>
                     <Link to="/Sign-In" className='px-2 py-1 border border-white rounded hover:bg-white hover:text-black transition-all duration-300'>Sign-In</Link>
                     <Link to="/Sign-Up" className='px-2 py-1 border border-white bg-purple-800 rounded hover:bg-white  hover:text-black transition-all duration-300'>Sign-Up</Link>
 
                   </div>
+                  }
                   
                 </div>
             </div>

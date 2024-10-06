@@ -20,6 +20,9 @@ export const registerUser = async (req, res) => {
                 message: "username length should be 5 or more"
             });
         }
+        
+        
+        console.log(username + "already exists");
 
         //checkout username already exists ?
         const existingUsername = await User.findOne({ username: username })
@@ -27,7 +30,9 @@ export const registerUser = async (req, res) => {
             return res.status(400).json({
                 message: `The username " ${username} " already exists`
             })
+
         }
+        
 
         //checkout email already exists ?
         const existingUserEmail = await User.findOne({ useremail: useremail })
