@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { LuLanguages } from "react-icons/lu";
-import { MdFavoriteBorder } from "react-icons/md";
-import { FaCartPlus } from "react-icons/fa";
+import { MdDelete, MdFavoriteBorder } from "react-icons/md";
+import { FaCartPlus, FaEdit } from "react-icons/fa";
+import { useSelector } from 'react-redux';
+import { authAction } from '../../Store/auth.js';
 
 
 
@@ -13,7 +15,10 @@ function ViewBookDetails() {
   const { id } = useParams()
   console.log(id);
   const [booksById, setBookById] = useState(null) // Initialize with null to indicate 'no data'
-  
+  const isLoggedin=useSelector((state)=>state.auth.isLoggedin);
+  const role=useSelector((state)=>state.auth.role);
+  console.log(isLoggedin);
+  console.log(role);
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -32,18 +37,66 @@ function ViewBookDetails() {
   if (!booksById) {
     return <p>Loading...</p>; // Render a loading state while data is being fetched
   }
+  const headers={
+    id: localStorage.getItem("id"),
+    authorization:`Bearer ${localStorage.getItem("token")}`,  
+    bookid:id
+  }
+const handleFavourite= async()=>{
+  try {
+    const response= await axios.put("http://localhost:3000/api/v1/favourite/addtofavourite", {},{headers});
+    alert(response.data.message);
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 
+const handleCart = async()=>{
+  try {
+    const response= await axios.put("http://localhost:3000/api/v1/cart/addtocart", {},{headers});
+    alert(response.data.message);
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
   // Render the component once the data is available
   return (
 <div className='px-12 py-8 bg-purple-800 flex gap-8'>
   <div className='bg-purple-900 rounded p-4 h-[88vh] w-3/6 flex items-center justify-center'>
     <img src={booksById.url} alt={booksById.title} className='h-[70vh] pl-[100px]' />
-    <div className=' text-center flex items-center flex-col ml-40 gap-2' > 
-      <button className=' shadow-2xl bg-purple-950  rounded-full text-white'><MdFavoriteBorder className='h-[30px] w-[30px] px-1 py-1'/></button>
-      <button className='shadow-2xl bg-purple-950 rounded-full text-white'><FaCartPlus className='h-[30px] w-[30px] px-1 py-1'/></button>
+
+{/* when --User logged-in show this */}
+{
+  isLoggedin===true && role==="user" &&(
+    <div  className=' text-center flex items-center flex-col ml-40 gap-2' > 
+      <button className=' shadow-2xl bg-purple-950  rounded-full text-white'><MdFavoriteBorder onClick={handleFavourite} className='h-[30px] w-[30px] px-1 py-1'/></button>
+      <button className='shadow-2xl bg-purple-950 rounded-full text-white'><FaCartPlus onClick={handleCart} className='h-[30px] w-[30px] px-1 py-1'/></button>
 
 
     </div>
+  )
+}
+
+{/* when --Admin logged-in show this */}
+
+
+{
+  isLoggedin===true && role==="admin" && (
+    <div className=' text-center flex items-center flex-col ml-40 gap-2' > 
+      <button className=' shadow-2xl bg-purple-950  rounded-full text-white'><FaEdit className='h-[30px] w-[30px] px-1 py-1'/></button>
+      <button className='shadow-2xl bg-purple-950 rounded-full text-white'><MdDelete className='h-[30px] w-[30px] px-1 py-1'/></button>
+
+
+    </div>
+  )
+}
+
+
+    
   </div>
   <div className='p-4 w-3/6 text-white'>
     <h1 className='text-2xl'>{booksById.title}</h1>
