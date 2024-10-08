@@ -22,7 +22,6 @@ export const registerUser = async (req, res) => {
         }
         
         
-        console.log(username + "already exists");
 
         //checkout username already exists ?
         const existingUsername = await User.findOne({ username: username })
@@ -141,7 +140,7 @@ export const registerUser = async (req, res) => {
 
  //get user api
  export const getUserInformation= async (req,res)=>{
-    console.log("getapi hitted::");
+    console.log("--> User Information api hitted");
 
     try {
         const { id }=req.headers;
