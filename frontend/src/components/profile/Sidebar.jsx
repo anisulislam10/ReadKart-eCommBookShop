@@ -1,10 +1,14 @@
 import React from 'react'
 import { FaHeart, FaHistory } from 'react-icons/fa'
 import { LuLogOut, LuSettings } from 'react-icons/lu'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import {authAction} from './../../Store/auth.js'
 
 
 function Sidebar({ data }) {
+   const navigate= useNavigate() 
+   const dispatch= useDispatch()
     const handleLogout=(e)=>{
         alert("Logout Successfully");
         
@@ -35,10 +39,21 @@ function Sidebar({ data }) {
                 <div className='grid grid-flow-col hover:bg-purple-950 transition duration-300'> 
                 <LuSettings className='mt-4 ml-4 '/> <Link to={"/profile/settings"} className='w-full h-full pt-3   font-semibold rounded hover:bg-purple-950  transition duration-300  text-left items-left justify-left pr-20 py-1' >Settings</Link> <br />
                                 
-
+                
                 </div>
 
-                <button onClick={handleLogout} className='grid grid-flow-col hover:bg-purple-950 transition duration-300 pt-3 font-semibold  pr-[100px] py-1'>
+                <button  className='grid grid-flow-col hover:bg-purple-950 transition duration-300 pt-3 font-semibold  pr-[100px] py-1
+                '  onClick={ ()=>{
+                    dispatch(authAction.logout());
+                    dispatch(authAction.changeRole("user"));
+                    localStorage.clear("id");
+                    localStorage.clear("token");
+                    localStorage.clear("role");
+                    handleLogout();
+                    navigate("/")
+                    
+                    
+                }}>
                     <LuLogOut className='mt-1 ml-4  '/> Logout
                     </button><br />
 

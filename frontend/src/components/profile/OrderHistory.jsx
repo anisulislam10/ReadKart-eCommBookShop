@@ -110,9 +110,14 @@ Order && Order.length===0  &&
           </div>  
           )
           : items.status=="Canceled" ?(
-            <div className=' text-red-400 shadow-xl rounded'>{items.status}</div>
+            <div className=' text-yellow-400 shadow-xl rounded'>{items.status}</div>
           )
-          : (
+          :
+           items.status=="Out for delivery" ?(
+            <div className=' text-blue-400 shadow-xl rounded'>{items.status}</div>
+          )
+          :
+          (
             items.status
           )
           }
