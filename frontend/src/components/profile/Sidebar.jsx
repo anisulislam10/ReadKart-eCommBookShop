@@ -11,6 +11,8 @@ function Sidebar({ data }) {
    const dispatch= useDispatch()
     const handleLogout=(e)=>{
         alert("Logout Successfully");
+        console.log("Logout Successfully");
+
         
     }
     return (
