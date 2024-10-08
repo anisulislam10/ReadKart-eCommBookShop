@@ -17,7 +17,7 @@ function Favourites() {
         setFavouriteBooks(response.data.data);
 
       } catch (error) {
-        alert(error);
+        console.log(error);
 
       }
     }
