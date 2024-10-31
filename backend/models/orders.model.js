@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema({
-    user: {
+    User: {
         type: mongoose.Types.ObjectId,
         ref: "User"
     },
-    book: {
+    Books: {
         type: mongoose.Types.ObjectId,
-        ref: "books"
+        ref: "Books"
     },
     status: {
-        
         type: String,
         default: "Order Placed",
         enum: ["Order Placed", "Out for delivery", "Delivered", "Canceled"]
@@ -21,4 +20,4 @@ const orderSchema = new mongoose.Schema({
 );
 
 
-export default mongoose.model("order", orderSchema);
+export default mongoose.model("Order", orderSchema);
