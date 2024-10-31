@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 const userSchema =new mongoose.Schema({
     username:{
-        type:String,
         requied: true,
+        type:String,
         unique:true
     },
     useremail:{
@@ -31,19 +31,19 @@ const userSchema =new mongoose.Schema({
     favourites:[
         {
         type:mongoose.Types.ObjectId,
-        ref:"books"
+        ref:"Books"
         },
     ],
     cart:[
         {
         type:mongoose.Types.ObjectId,
-        ref:"books"
+        ref:"Books"
     },
     ],
-    orders:[
+    Order:[
         {
         type:mongoose.Types.ObjectId,
-        ref:"order"
+        ref:"Order"
     },
     ]
  

@@ -1,12 +1,13 @@
 import React from 'react'
-import { FaHeart, FaHistory } from 'react-icons/fa'
-import { LuLogOut, LuSettings } from 'react-icons/lu'
+import { FaHeart, FaHistory, FaPlus } from 'react-icons/fa'
+import { LuListOrdered, LuLogOut, LuSettings } from 'react-icons/lu'
 import { Link, useNavigate } from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {authAction} from './../../Store/auth.js'
 
 
 function Sidebar({ data }) {
+  const role= useSelector((state)=>state.auth.role)
    const navigate= useNavigate() 
    const dispatch= useDispatch()
     const handleLogout=(e)=>{
@@ -19,7 +20,7 @@ function Sidebar({ data }) {
         <div className='bg-purple-900 p-4 rounded flex-col items-center justify-center h-[100%] shadow-lg'>
             <div className='shadow-2xl rounded items-center text-center'>
 
-            <img src={data.avatar} alt={ `${data.username } Avatar`} className='h-[10vh]' />
+            <img src={data.avatar} alt={ `${data.username } Avatar`} className='h-[10vh] ml-16' />
             <p className='text-xl font-semibold '>{data.username}</p>
             <p className='text-x font-semibold'> {data.useremail}</p>
             <div className='w-full mt-4 h-[1px] bg-slate-300'></div>
@@ -27,7 +28,9 @@ function Sidebar({ data }) {
             </div>
 
 
-            <div className='w-full h-full flex-col mt-4 '>
+           {
+            role==="user" && (
+                <div className='w-full h-full flex-col mt-4 '>
 
                 <div className='grid grid-flow-col hover:bg-purple-950 transition duration-300'>
                 <FaHeart className='mt-4 ml-4 ' /><Link to={"/profile"} className='w-full h-full  pt-3   font-semibold rounded hover:bg-purple-950 transition duration-300  text-left items-left justify-left pr-16 py-1'>Favourites </Link> <br />
@@ -60,6 +63,44 @@ function Sidebar({ data }) {
                     </button><br />
 
             </div>
+            )
+           }
+
+           {
+            role ==="admin" && (
+
+                <div className='w-full h-full flex-col mt-4 '>
+
+                <div className='grid grid-flow-col hover:bg-purple-950 transition duration-300'>
+                <LuListOrdered className='mt-4 ml-4 ' />
+                <Link to={"/profile"} className='w-full h-full  pt-3   font-semibold rounded hover:bg-purple-950 transition duration-300  text-left items-left justify-left pr-16 py-1'>All Orders </Link> <br />
+                </div>
+
+
+
+                <div className='grid grid-flow-col hover:bg-purple-950 transition duration-300'>
+                <FaPlus className='mt-4 ml-4 '/> 
+                <Link to={"/profile/admin/add-books"} className='w-full h-full  pt-3  font-semibold rounded hover:bg-purple-950  transition duration-300 text-left items-left justify-left pr-11 py-1'>Add Book </Link> <br />
+                </div>
+
+                <button  className='grid grid-flow-col hover:bg-purple-950 transition duration-300 pt-3 font-semibold  pr-[100px] py-1
+                '  onClick={ ()=>{
+                    dispatch(authAction.logout());
+                    dispatch(authAction.changeRole("user"));
+                    localStorage.clear("id");
+                    localStorage.clear("token");
+                    localStorage.clear("role");
+                    handleLogout();
+                    navigate("/")
+                    
+                    
+                }}>
+                    <LuLogOut className='mt-1 ml-4  '/> Logout
+                    </button><br />
+
+            </div>
+            )
+           }
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { LuLanguages } from "react-icons/lu";
 import { MdDelete, MdFavoriteBorder } from "react-icons/md";
@@ -12,6 +12,7 @@ import { authAction } from '../../Store/auth.js';
 
 
 function ViewBookDetails() {
+  const navigate=useNavigate();
   const { id } = useParams()
   console.log(id);
   const [booksById, setBookById] = useState(null) // Initialize with null to indicate 'no data'
@@ -52,7 +53,18 @@ const handleFavourite= async()=>{
     
   }
 }
-
+const handleDeleteBook= async()=>{
+  try {
+    const response= await axios.delete("http://localhost:3000/api/v1/book/deletebook/",{headers});
+    alert(response.data.message);
+    navigate("/all-books")
+    
+  } catch (error) {
+    alert(error.response.data.message);
+    
+    
+  }
+}
 const handleCart = async()=>{
   try {
     const response= await axios.put("http://localhost:3000/api/v1/cart/addtocart", {},{headers});
@@ -87,8 +99,9 @@ const handleCart = async()=>{
 {
   isLoggedin===true && role==="admin" && (
     <div className=' text-center flex items-center flex-col ml-40 gap-2' > 
-      <button className=' shadow-2xl bg-purple-950  rounded-full text-white'><FaEdit className='h-[30px] w-[30px] px-1 py-1'/></button>
-      <button className='shadow-2xl bg-purple-950 rounded-full text-white'><MdDelete className='h-[30px] w-[30px] px-1 py-1'/></button>
+      <Link to={`/update-Book-admin/${id}`} className=' shadow-2xl bg-purple-950  rounded-full text-white'><FaEdit className='h-[30px] w-[30px] px-1 py-1'/></Link>
+
+      <button onClick={handleDeleteBook} className='shadow-2xl bg-purple-950 rounded-full text-white'><MdDelete className='h-[30px] w-[30px] px-1 py-1'/></button>
 
 
     </div>

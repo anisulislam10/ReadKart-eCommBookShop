@@ -1,6 +1,7 @@
 import React from 'react'
 import Hero from '../components/Home/Hero'
 import RecentlyAddedBooks from '../components/Home/RecentlyAddedBooks'
+import Footer from '../components/Footer/Footer'
 
 function Homepage() {
   return (

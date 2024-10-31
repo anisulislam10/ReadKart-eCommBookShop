@@ -79,7 +79,7 @@ const handlePlaceOrder =async()=>{
             {
               addToCart.map((items, i) => (
                 <div key={i} className='grid grid-cols-3 items-center mx-5 gap-3 mt-1 bg-purple-700 text-white mb-2 '>
-                  <img src={items.url} alt={items.title} />
+                  <img src={items.url} alt={items.title} className='w-[100px] ml-3 py-2'/>
                   <div>
                     <h1 className='text-xl font-semibold'>{items.title}</h1>
                     <p >{items.desc.slice(0, 65)}...</p>

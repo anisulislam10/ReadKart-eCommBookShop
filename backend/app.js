@@ -13,7 +13,6 @@ dotenv.config();
 // app.use(cors());
 const app = express();
 
-// Use express's built-in body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -15,8 +15,6 @@ function BookCart({ data, favourite }) {
 
     } catch (error) {
       console.log(error);
-
-
     }
   }
   // console.log(data);
@@ -37,8 +35,8 @@ function BookCart({ data, favourite }) {
       <div>
         {
           favourite && (
-            <button onClick={handleRemoveFromFavourites} className=' bg-red-400 text-white  rounded border border-red-500  px-7'
-
+            <button onClick={handleRemoveFromFavourites}
+             className=' bg-red-400 text-white  rounded border border-red-500  px-7'
             >❌ Remove From Favourites</button>
           )}
       </div>

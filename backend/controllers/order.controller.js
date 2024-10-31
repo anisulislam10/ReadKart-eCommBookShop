@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../models/user.model.js";
 import Order from "../models/orders.model.js";
+// import Books from "../models/book.model.js";
 
 //order place --Public API
 export const createOrder = async (req, res) => {
@@ -65,13 +66,13 @@ export const createOrder = async (req, res) => {
    try {
       const {id}=req.headers;
       const userData=await User.findById(id).populate({
-         path:"orders",
-         populate:{path:"book"},
+         path:"Order",
+         populate:{path:"Books"},
       });
-      const orderData=userData.orders.reverse();
+      const orderData=userData.Order.reverse();
       return res.status(200).json({status:true, data:orderData})
    } catch (error) {
-      console.log("Get Order History Error: " + error);
+      console.log("Get Order History --public api Error: " + error);
    return res.status(500).json({status:false, message: "Internal Server Error"})
       
       
@@ -84,16 +85,16 @@ export const createOrder = async (req, res) => {
       // const {id}=req.headers;
       const userData=await Order.find()
       .populate({
-         path:"books",
+         path:"Books",
       })
       .populate({
-         path:"user",
+         path:"User",
       })
      .sort({createdAt:-1});     
       // const orderData=userData.orders.reverse();
       return res.status(200).json({status:true, data:userData})
    } catch (error) {
-      console.log("Get Order History Error: " + error);
+      console.log("Get All Order History Error: " + error);
    return res.status(500).json({status:false, message: "Internal Server Error"})
       
       
